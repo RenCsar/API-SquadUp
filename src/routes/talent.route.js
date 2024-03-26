@@ -6,9 +6,9 @@ const talentRoute = Router();
 
 talentRoute.post("/", validEmail, talentExist, create);
 talentRoute.get("/", findAll);
-talentRoute.get("/:email", validEmail, findByEmail);
-talentRoute.get("/:stack", findByStack);
-talentRoute.get("/:id", validId, validUser, deleteById);
+talentRoute.get("/:email", findByEmail);
+talentRoute.get("/search/:stack", findByStack);
+talentRoute.delete("/:id", validId, validUser, deleteById);
 talentRoute.patch("/:id", validId, validUser, validEmail, talentExist, update);
 
 export default talentRoute;

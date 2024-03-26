@@ -2,9 +2,16 @@ import Talents from "../models/talent.js";
 
 export const createRepository = (body) => Talents.create(body);
 export const findAllRepository = (offset, limit) =>
-    Talents.find().sort({ _id: -1 }).skip(offset).limit(limit);
-export const searchByEmailRepository = (email) => Talents.find({ email: email });
-export const findBySectionRepository = (offset, limit, stack) =>
+    Talents.find()
+        .sort({ _id: -1 })
+        .skip(offset)
+        .limit(limit);
+export const searchByEmailRepository = (offset, limit, email) =>
+    Talents.find({ email: email })
+        .sort({ _id: -1 })
+        .skip(offset)
+        .limit(limit);
+export const searchByStackRepository = (offset, limit, stack) =>
     Talents.find({ stack: stack })
         .sort({ _id: -1 })
         .skip(offset)
@@ -18,3 +25,4 @@ export const updateRepository = ({ nome, email, rg, cpf, telefone, estado, cidad
 
 export const deleteByIdRepository = (id) => Talents.findOneAndDelete({ _id: id });
 export const countTalents = () => Talents.countDocuments();
+export const findTalentByIdRepository = (id) => Talents.findById(id);
