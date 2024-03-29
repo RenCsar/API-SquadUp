@@ -5,7 +5,7 @@ export const create = async (req, res) => {
         const user = await createService(req.body);
         res.status(201).send({
             message: "Talento cadastrado com sucesso!",
-            user: {
+            talent: {
                 id: user._id,
                 ...req.body
             },
