@@ -71,7 +71,7 @@ export const deleteById = async (req, res) => {
     try {
         const id = req.id;
         await deleteByIdService(id);
-        return res.status(200).send({ messege: "Talento deletado com sucesso!" });
+        return res.status(200).send({ message: "Talento deletado com sucesso!" });
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
@@ -83,7 +83,7 @@ export const update = async (req, res) => {
 
         await updateService(req.body);
 
-        res.status(201).send({ messege: "Talento atualizado com sucesso!" });
+        res.status(201).send({ message: "Talento atualizado com sucesso!" });
     } catch (error) {
         res.status(500).send({ message: error.message });
     }

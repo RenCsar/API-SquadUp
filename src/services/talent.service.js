@@ -87,7 +87,7 @@ export const findByEmailService = async (body) => {
         }
 
         const talent = await searchByEmailRepository(offset, limit, email);
-        const total = await countTalents();
+        const total = talent.length;
         const currentUrl = baseUrl;
 
         const next = offset + limit;
@@ -145,7 +145,7 @@ export const findByStackService = async (body) => {
         }
 
         const talent = await searchByStackRepository(offset, limit, stack);
-        const total = await countTalents();
+        const total = talent.length;
         const currentUrl = baseUrl;
 
         const next = offset + limit;
