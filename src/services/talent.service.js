@@ -15,7 +15,7 @@ export const createService = async (body) => {
 
 export const findAllService = async (body) => {
     try {
-        let { limit, offset, baseUrl } = body;
+        let { limit, offset } = body;
 
         limit = Number(limit);
         offset = Number(offset);
@@ -30,23 +30,10 @@ export const findAllService = async (body) => {
 
         const talents = await findAllRepository(offset, limit);
         const total = await countTalents();
-        const currentUrl = baseUrl;
-
-        const next = offset + limit;
-        const nextUrl =
-            next < total ? `${currentUrl}?limit=${limit}&offset=${next}` : null;
-
-        const previuos = offset - limit < 0 ? null : offset - limit;
-        const previuosUrl =
-            previuos != null
-                ? `${currentUrl}?limit=${limit}&offset=${previuos}`
-                : null;
 
         if (talents.length === 0) throw new Error("Nenhum Talento registrado!");
 
         return {
-            nextUrl,
-            previuosUrl,
             limit,
             offset,
             total,
@@ -73,7 +60,7 @@ export const findAllService = async (body) => {
 
 export const findByEmailService = async (body) => {
     try {
-        let { limit, offset, baseUrl, email } = body;
+        let { limit, offset, email } = body;
 
         limit = Number(limit);
         offset = Number(offset);
@@ -88,23 +75,10 @@ export const findByEmailService = async (body) => {
 
         const talent = await searchByEmailRepository(offset, limit, email);
         const total = talent.length;
-        const currentUrl = baseUrl;
-
-        const next = offset + limit;
-        const nextUrl =
-            next < total ? `${currentUrl}?limit=${limit}&offset=${next}` : null;
-
-        const previuos = offset - limit < 0 ? null : offset - limit;
-        const previuosUrl =
-            previuos != null
-                ? `${currentUrl}?limit=${limit}&offset=${previuos}`
-                : null;
 
         if (talent.length === 0) throw new Error("Não existe nenhum Talento com esse email!");
 
         return {
-            nextUrl,
-            previuosUrl,
             limit,
             offset,
             total,
@@ -131,7 +105,7 @@ export const findByEmailService = async (body) => {
 
 export const findByStackService = async (body) => {
     try {
-        let { limit, offset, baseUrl, stack } = body;
+        let { limit, offset, stack } = body;
 
         limit = Number(limit);
         offset = Number(offset);
@@ -146,23 +120,10 @@ export const findByStackService = async (body) => {
 
         const talent = await searchByStackRepository(offset, limit, stack);
         const total = talent.length;
-        const currentUrl = baseUrl;
-
-        const next = offset + limit;
-        const nextUrl =
-            next < total ? `${currentUrl}?limit=${limit}&offset=${next}` : null;
-
-        const previuos = offset - limit < 0 ? null : offset - limit;
-        const previuosUrl =
-            previuos != null
-                ? `${currentUrl}?limit=${limit}&offset=${previuos}`
-                : null;
 
         if (talent.length === 0) throw new Error("Não existe nenhum Talento com essa Stack!");
 
         return {
-            nextUrl,
-            previuosUrl,
             limit,
             offset,
             total,

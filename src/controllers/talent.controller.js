@@ -20,7 +20,6 @@ export const findAll = async (req, res) => {
         const body = {
             limit: req.query.limit,
             offset: req.query.offset,
-            baseUrl: req.baseUrl,
         };
 
         const talents = await findAllService(body);
@@ -39,7 +38,6 @@ export const findByEmail = async (req, res) => {
             limit: req.query.limit,
             offset: req.query.offset,
             email: req.params.email,
-            baseUrl: req.baseUrl,
         };
 
         const talent = await findByEmailService(body);
@@ -56,7 +54,6 @@ export const findByStack = async (req, res) => {
             limit: req.query.limit,
             offset: req.query.offset,
             stack: req.params.stack,
-            baseUrl: req.baseUrl,
         };
 
         const talent = await findByStackService(body)
