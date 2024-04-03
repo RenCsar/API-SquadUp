@@ -54,6 +54,20 @@ export const validId = (req, res, next) => {
     next();
 };
 
+export const checkTalentCreationDate = async (req, res, next) => {
+    const id = req.params.id;
+
+    const talent = await findTalentByIdRepository(id);
+
+    const dataFixa = new Date("2024-04-01");
+
+    if (talent._id.getTimestamp() < dataFixa) {
+        return res.status(403).json({ message: 'Você não tem autorização para alterar os registros antigos!' });
+    }
+
+    next();
+}
+
 export const validUser = async (req, res, next) => {
     const id = req.params.id;
 
