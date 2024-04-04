@@ -22,8 +22,8 @@ app.use(cors());
 
 //Rate Limit
 const limiter = rateLimit({
-    windowMs: second * 1000,
-    limit: limit,
+    windowMs: 20 * 1000,
+    limit: 10,
     standardHeaders: 'draft-7',
     legacyHeaders: false,
     handler: (_, res) => {
