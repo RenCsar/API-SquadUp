@@ -17,8 +17,19 @@ const limit = process.env.RATE_LIMIT_LIMIT;
 //config
 dotenv.config();
 connectDatabase();
-app.use(json());
 app.use(cors());
+app.use(json({ limit: '10kb' }));
+
+//PayloadTooLargeError: Tratamento para a situação em que o limite de payload é excedido
+app.use((err, _, res, next) => {
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        res.status(400).json({ message: 'O Payload da requisição está malformado!' });
+    } else if (err.type === 'entity.too.large') {
+        res.status(400).json({ message: 'O Payload da requisição deve ser menor que 10kb!' });
+    } else {
+        next(err);
+    }
+});
 
 //Rate Limit
 const limiter = rateLimit({
