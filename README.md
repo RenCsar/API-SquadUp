@@ -63,6 +63,8 @@ As funcionalidades da v1.0 são:
 - Recuperação paginada dos dados para melhorar o desempenho e a eficiência.
 - Aplicação de rate-limit para evitar excesso de requisições e garantir a estabilidade do servidor
 - Limitação do tamanho do payload JSON enviado nas solicitações POST e PATCH para evitar ataques de negação de serviço (DoS) devido a solicitações com grandes cargas úteis.
+- Limite de, no máximo, 100 novos registros por hora para não sobrecarregar o sistema.
+- Exclusão agendada de novos registros nos horários: 0hrs, 6hrs, 12hrs e 18hrs. ---- Versão Beta -----
 - Utilizar variáveis de ambiente para configurar informações sensíveis ou configuráveis, como chaves de API, URLs de banco de dados, etc.
 - Validar os dados de entrada recebidos das solicitações para garantir que estejam no formato correto e atendam aos critérios de validação necessários.
 
@@ -95,6 +97,9 @@ src/
 │
 ├── services/
 │   └── talent.service.js       # Serviços relacionados a talentos
+│
+├── utils/
+│   └── ...                     # Arquivos em geral
 │
 ├── .env                        # Variáveis de ambiente
 │
