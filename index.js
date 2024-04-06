@@ -7,6 +7,7 @@ import { rateLimit } from 'express-rate-limit';
 
 //Routes imports
 import talentRoute from "./src/routes/talent.route.js";
+import scheduleDelete from "./src/utils/scheduleDelete.js";
 
 //variables
 const app = express();
@@ -19,6 +20,7 @@ dotenv.config();
 connectDatabase();
 app.use(cors());
 app.use(json({ limit: '10kb' }));
+scheduleDelete();
 
 //PayloadTooLargeError: Tratamento para a situação em que o limite de payload é excedido
 app.use((err, _, res, next) => {
@@ -45,7 +47,7 @@ const limiter = rateLimit({
 });
 
 // Apply the rate limiting middleware to all requests.
-app.use(limiter)
+app.use(limiter);
 
 //routes
 app.get("/", (_, res) => { res.send("Bem-vindo(a) ao APP!") });

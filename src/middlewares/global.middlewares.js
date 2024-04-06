@@ -1,7 +1,6 @@
 import { Types } from "mongoose";
 import Talents from "../models/talent.js";
 import { findTalentByIdRepository } from "../repositories/talent.repositories.js";
-import dotenv from "dotenv";
 
 export const validEmail = (req, res, next) => {
     const email = req.body.email;
@@ -92,7 +91,7 @@ export const limitUserCreation = async (_, res, next) => {
     try {
         // Calcula o timestamp da hora atual menos uma hora
         const lastHourTimestamp = Math.floor(currentHour.getTime() / 1000) - 3600;
-        
+
         // Conta o número de usuários criados na última hora
         const userCountLastHour = await Talents.countDocuments({ _id: { $gte: Types.ObjectId.createFromTime(lastHourTimestamp) } });
 
@@ -103,5 +102,28 @@ export const limitUserCreation = async (_, res, next) => {
         next();
     } catch (error) {
         return res.status(500).json({ message: 'Erro ao verificar limite de criação de usuários!' });
+    }
+};
+
+export const deleteFreshTalents = async () => {
+    try {
+        const cutoffDate = new Date('2024-04-01'); // Data limite para exclusão
+        const currentDate = new Date(); // Data atual
+
+        // Cria um Timestamp para a data limite
+        const cutoffTimestamp = Math.floor(cutoffDate.getTime() / 1000);
+        const currentTimestamp = Math.floor(currentDate.getTime() / 1000);
+
+        // Deleta os talentos criados desde a data limite
+        await Talents.deleteMany({
+            _id: {
+                $gte: Types.ObjectId.createFromTime(cutoffTimestamp),
+                $lte: Types.ObjectId.createFromTime(currentTimestamp)
+            }
+        });
+
+        console.log('Talentos recenter foram apagados.');
+    } catch (error) {
+        console.error('Erro ao apagar talentos recentes:', error);
     }
 };
