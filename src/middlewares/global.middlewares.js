@@ -82,3 +82,19 @@ export const validUser = async (req, res, next) => {
 
     next();
 };
+
+export const deleteFreshTalents = async () => {
+    try {
+        const dateLimit = new Date('2024-04-10');
+
+        // Cria um Timestamp para a data limite
+        const dateLimitTimestamp = Math.floor(dateLimit.getTime() / 1000);
+
+        // Deleta os talentos criados desde a data limite
+        await Talents.deleteMany({ _id: { $gte: Types.ObjectId.createFromTime(dateLimitTimestamp) } });
+
+        console.log('Talentos antigos foram apagados.');
+    } catch (error) {
+        console.error('Erro ao apagar talentos antigos:', error);
+    }
+};

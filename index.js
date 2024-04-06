@@ -7,6 +7,7 @@ import { rateLimit } from 'express-rate-limit';
 
 //Routes imports
 import talentRoute from "./src/routes/talent.route.js";
+import scheduleDelete from "./src/utils/scheduleDelete.js";
 
 //variables
 const app = express();
@@ -46,6 +47,8 @@ const limiter = rateLimit({
 
 // Apply the rate limiting middleware to all requests.
 app.use(limiter)
+
+scheduleDelete();
 
 //routes
 app.get("/", (_, res) => { res.send("Bem-vindo(a) ao APP!") });
