@@ -167,6 +167,7 @@ _Siga os passos abaixo para configurar e iniciar o projeto_
     SECRET=seu-segredo-de-criptografia
     RATE_LIMIT_SEC=intervalo-de-tempo-em-segundos
     RATE_LIMIT_LIMIT=quantidade-de-requisicoes
+    MAX_CREATE_PER_HOUR=máximo-de-usuarios
    ```
 
 #### Executando o Projeto
