@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 import Talents from "../models/talent.js";
 import { findTalentByIdRepository } from "../repositories/talent.repositories.js";
+import dotenv from "dotenv";
 
 export const validEmail = (req, res, next) => {
     const email = req.body.email;
@@ -81,4 +82,26 @@ export const validUser = async (req, res, next) => {
     req.user = user;
 
     next();
+};
+
+export const limitUserCreation = async (_, res, next) => {
+    const maxUserCreationPerHour = Number(process.env.MAX_CREATE_PER_HOUR);
+    const currentHour = new Date();
+    currentHour.setMinutes(0, 0, 0); // Define os minutos, segundos e milissegundos como 0 para considerar o início da hora atual
+
+    try {
+        // Calcula o timestamp da hora atual menos uma hora
+        const lastHourTimestamp = Math.floor(currentHour.getTime() / 1000) - 3600;
+        
+        // Conta o número de usuários criados na última hora
+        const userCountLastHour = await Talents.countDocuments({ _id: { $gte: Types.ObjectId.createFromTime(lastHourTimestamp) } });
+
+        if (userCountLastHour >= maxUserCreationPerHour) {
+            return res.status(429).json({ message: 'Limite global de criação de usuários por hora excedido!' });
+        }
+
+        next();
+    } catch (error) {
+        return res.status(500).json({ message: 'Erro ao verificar limite de criação de usuários!' });
+    }
 };
