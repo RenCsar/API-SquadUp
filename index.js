@@ -8,6 +8,7 @@ import { rateLimit } from 'express-rate-limit';
 
 //Routes imports
 import talentRoute from "./src/routes/talent.route.js";
+import cron from "./api/cron.js";
 
 //variables
 const app = express();
@@ -52,6 +53,7 @@ app.use(limiter);
 //routes
 app.get("/", (_, res) => { res.send("Bem-vindo(a) ao APP!") });
 app.use("/talent", talentRoute);
+app.use("/cron", cron);
 
 //Server listening
 app.listen(PORT, () => console.log(`Servidor rodando na porta: ${PORT}`));
