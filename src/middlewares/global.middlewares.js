@@ -106,7 +106,7 @@ export const limitUserCreation = async (_, res, next) => {
 };
 
 export const deleteFreshTalents = async () => {
-    console.log('Executando tarefa agendada para apagar talentos antigos.');
+    console.log('Executando tarefa agendada para apagar talentos recentes.');
 
     try {
         const cutoffDate = new Date('2024-04-01'); // Data limite para exclusão
