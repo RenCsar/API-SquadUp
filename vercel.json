@@ -12,10 +12,10 @@
       "dest": "/"
     }
   ],
-  "functions": {
-    "scheduleDelete": {
-      "runtime": "@vercel/node",
-      "includeFiles": "src/utils/**/*"
+  "crons": [
+    {
+      "path": "/src/utils",
+      "schedule": "0 12 * * *"
     }
-  }
+  ]
 }
