@@ -13,6 +13,9 @@
     }
   ],
   "functions": {
-    "scheduleDelete": "src/utils/scheduleDelete.js"
+    "scheduleDelete": {
+      "runtime": "@vercel/node",
+      "includeFiles": "src/utils/**/*"
+    }
   }
 }
