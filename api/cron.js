@@ -1,4 +1,4 @@
-import { deleteFreshTalents } from "../src/middlewares/global.middlewares";
+import { deleteFreshTalents } from "../src/middlewares/global.middlewares.js";
 
 const cron = async (_, res) => {
     try {
