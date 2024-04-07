@@ -12,5 +12,7 @@
       "dest": "/"
     }
   ],
-  "functions": "utils"
+  "functions": {
+    "scheduleDelete": "src/utils/scheduleDelete.js"
+  }
 }
