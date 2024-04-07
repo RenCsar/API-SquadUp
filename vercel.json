@@ -14,7 +14,7 @@
   ],
   "crons": [
     {
-      "path": "/src/utils",
+      "path": "/api/cron",
       "schedule": "0 12 * * *"
     }
   ]
