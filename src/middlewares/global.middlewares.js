@@ -106,6 +106,8 @@ export const limitUserCreation = async (_, res, next) => {
 };
 
 export const deleteFreshTalents = async () => {
+    console.log('Executando tarefa agendada para apagar talentos antigos.');
+
     try {
         const cutoffDate = new Date('2024-04-01'); // Data limite para exclusão
         const currentDate = new Date(); // Data atual
@@ -115,15 +117,15 @@ export const deleteFreshTalents = async () => {
         const currentTimestamp = Math.floor(currentDate.getTime() / 1000);
 
         // Deleta os talentos criados desde a data limite
-        await Talents.deleteMany({
+        return await Talents.deleteMany({
             _id: {
                 $gte: Types.ObjectId.createFromTime(cutoffTimestamp),
                 $lte: Types.ObjectId.createFromTime(currentTimestamp)
             }
         });
 
-        console.log('Talentos recenter foram apagados.');
     } catch (error) {
         console.error('Erro ao apagar talentos recentes:', error);
+        throw new Error(error.message);
     }
 };

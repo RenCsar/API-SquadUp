@@ -4,7 +4,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDatabase from "./src/database/db.js";
 import { rateLimit } from 'express-rate-limit';
-// import scheduleDelete from "./src/utils/scheduleDelete.js";
 
 //Routes imports
 import talentRoute from "./src/routes/talent.route.js";
@@ -21,7 +20,6 @@ dotenv.config();
 connectDatabase();
 app.use(cors());
 app.use(json({ limit: '10kb' }));
-// scheduleDelete();
 
 //PayloadTooLargeError: Tratamento para a situação em que o limite de payload é excedido
 app.use((err, _, res, next) => {

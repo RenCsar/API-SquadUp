@@ -9,7 +9,7 @@ export const createService = async (body) => {
 
         return await createRepository(body);
     } catch (error) {
-        throw new Error(error.message);;
+        throw new Error(error.message);
     }
 };
 
